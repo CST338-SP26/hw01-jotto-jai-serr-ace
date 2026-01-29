@@ -66,4 +66,8 @@ public class Jotto {
     public boolean addPlayerGuess(String guess){
 
     }
+
+    public Jotto() {
+
+    }
 }
