@@ -38,13 +38,12 @@ public class Jotto {
         int rand = random.nextInt(wordList.size());
         currentWord = wordList.get(rand);
 
-
         if (playWords.contains(currentWord)) {
             if (playWords.size() == wordList.size()) {
                 System.out.println("You've guessed them all!");
                 return false;
             }
-            return pickWord(); // IMPORTANT: return it
+            return pickWord();
         }
 
         if(!playWords.contains(currentWord)) playWords.add(currentWord);
@@ -68,12 +67,11 @@ public class Jotto {
     public ArrayList<String> showPlayerGuesses(){
         if (playGuesses.isEmpty()) {
             System.out.println("No guesses yet");
-            return playGuesses;  // ✅ don’t ask to update when empty
+            return playGuesses; 
         }
 
         System.out.println("Current player guesses:");
         for (String word : playGuesses) System.out.println(word.toLowerCase());
-
         System.out.println("Would you like to add the words to the word list? (y/n)");
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine().trim().toLowerCase();
@@ -81,7 +79,6 @@ public class Jotto {
             updateWordList();
             System.out.println(showWordList());
         }
-
         return playGuesses;
     }
 
@@ -89,7 +86,6 @@ public class Jotto {
         for (String word : list) {
             System.out.println(word + " : " + getLetterCount(word));
         }
-
     }
 
     public void setCurrentWord(String currentWord) {
@@ -100,17 +96,14 @@ public class Jotto {
         try{
             File file = new File(filename);
             Scanner scan = new Scanner(file);
-
             while(scan.hasNextLine()){
                 String w = scan.nextLine().trim();
                 if(!wordList.contains(w)) wordList.add(w);
             }
-
             scan.close();
         } catch (FileNotFoundException e){
             System.out.println("Couldn't open " + filename);
         }
-
         return wordList;
     }
 
@@ -195,8 +188,6 @@ public class Jotto {
                 playerGuessScores(currentGuess);
                 break;
             }
-
-
             letterCount = getLetterCount(wordGuess);
 
             if(letterCount != WORD_SIZE){
@@ -208,11 +199,8 @@ public class Jotto {
             }
 
             score--;
-
             playerGuessScores(currentGuess);
-
         }
-
         return score;
     }
 
@@ -226,7 +214,6 @@ public class Jotto {
 
     public int getLetterCount(String wordGuess) {
         int count = 0;
-
         if (wordGuess == null || currentWord == null) {
             return 0;
         }
@@ -247,14 +234,12 @@ public class Jotto {
 
         for (int i = 0; i < wordGuess.length(); i++) {
             char g = wordGuess.charAt(i);
-
             int idx = remaining.indexOf(g);
             if (idx != -1) {
                 remaining.remove(idx);
                 count++;
             }
         }
-
         return count;
     }
 
@@ -304,5 +289,4 @@ public class Jotto {
             System.out.println("Couldn't open " + filename);
         }
     }
-
 }
